@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sportsync_dev
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+
+# ── JWT ───────────────────────────────────────────────────────────────────────
+# IMPORTANT: replace this with a real secret (≥32 chars) before deploying.
+# In production, set the APP_JWT_SECRET environment variable instead.
+app:
+  jwt:
+    secret: ${APP_JWT_SECRET:dev-secret-change-me-in-production-32ch}
+    expiration-ms: 86400000   # 24 hours
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+logging:
+  level:
+    com.sportsync: DEBUG
+    org.springframework.security: DEBUG

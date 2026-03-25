@@ -1,0 +1,118 @@
+﻿BROWSER CONSOLE: [vite] connecting...
+BROWSER CONSOLE: [vite] connected.
+BROWSER CONSOLE: %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold
+BROWSER CONSOLE: ΓÜá∩╕Å React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+BROWSER CONSOLE: ΓÜá∩╕Å React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+BROWSER CONSOLE: Warning: Rendering <Context> directly is not supported and will be removed in a future major release. Did you mean to render <Context.Consumer> instead?%s 
+    at div
+    at MapContainerComponent (http://localhost:5173/node_modules/.vite/deps/react-leaflet.js?v=a0ffca07:532:34)
+    at div
+    at DiscoveryHome (http://localhost:5173/src/pages/DiscoveryHome.tsx:48:35)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4537:26)
+    at div
+    at div
+    at MainLayout
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4601:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4544:15)
+    at BrowserRouter (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:5290:5)
+    at App
+    at ErrorBoundary (http://localhost:5173/src/main.tsx?t=1773310978635:10:5)
+BROWSER CONSOLE: Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it.%s 
+    at div
+    at MapContainerComponent (http://localhost:5173/node_modules/.vite/deps/react-leaflet.js?v=a0ffca07:532:34)
+    at div
+    at DiscoveryHome (http://localhost:5173/src/pages/DiscoveryHome.tsx:48:35)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4537:26)
+    at div
+    at div
+    at MainLayout
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4601:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4544:15)
+    at BrowserRouter (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:5290:5)
+    at App
+    at ErrorBoundary (http://localhost:5173/src/main.tsx?t=1773310978635:10:5)
+BROWSER CONSOLE: Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it.%s 
+    at div
+    at MapContainerComponent (http://localhost:5173/node_modules/.vite/deps/react-leaflet.js?v=a0ffca07:532:34)
+    at div
+    at DiscoveryHome (http://localhost:5173/src/pages/DiscoveryHome.tsx:48:35)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4537:26)
+    at div
+    at div
+    at MainLayout
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4601:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4544:15)
+    at BrowserRouter (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:5290:5)
+    at App
+    at ErrorBoundary (http://localhost:5173/src/main.tsx?t=1773310978635:10:5)
+node : BROWSER ERROR: render2 is not a function
+At line:1 char:1
++ node get_errors.cjs 2>&1 | Out-File -Encoding 
+utf8 error.log
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (BROWSE 
+   R ERROR: render2 is not a function:String) [],   
+  RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+BROWSER CONSOLE: Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it.%s 
+    at div
+    at MapContainerComponent (http://localhost:5173/node_modules/.vite/deps/react-leaflet.js?v=a0ffca07:532:34)
+    at div
+    at DiscoveryHome (http://localhost:5173/src/pages/DiscoveryHome.tsx:48:35)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4537:26)
+    at div
+    at div
+    at MainLayout
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4601:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4544:15)
+    at BrowserRouter (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:5290:5)
+    at App
+    at ErrorBoundary (http://localhost:5173/src/main.tsx?t=1773310978635:10:5)
+BROWSER CONSOLE: Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it.%s 
+    at div
+    at MapContainerComponent (http://localhost:5173/node_modules/.vite/deps/react-leaflet.js?v=a0ffca07:532:34)
+    at div
+    at DiscoveryHome (http://localhost:5173/src/pages/DiscoveryHome.tsx:48:35)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4537:26)
+    at div
+    at div
+    at MainLayout
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4601:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4544:15)
+    at BrowserRouter (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:5290:5)
+    at App
+    at ErrorBoundary (http://localhost:5173/src/main.tsx?t=1773310978635:10:5)
+BROWSER ERROR: render2 is not a function
+BROWSER CONSOLE: The above error occurred in the <Context.Consumer> component:
+
+    at div
+    at MapContainerComponent (http://localhost:5173/node_modules/.vite/deps/react-leaflet.js?v=a0ffca07:532:34)
+    at div
+    at DiscoveryHome (http://localhost:5173/src/pages/DiscoveryHome.tsx:48:35)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4537:26)
+    at div
+    at div
+    at MainLayout
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4131:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4601:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:4544:15)
+    at BrowserRouter (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=721cce24:5290:5)
+    at App
+    at ErrorBoundary (http://localhost:5173/src/main.tsx?t=1773310978635:10:5)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+BROWSER CONSOLE: ErrorBoundary caught an error TypeError: render2 is not a function [object Object]
+BROWSER CONSOLE: Failed to load resource: the server responded with a status of 404 (Not Found)
+Page loaded successfully

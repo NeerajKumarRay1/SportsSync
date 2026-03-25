@@ -1,0 +1,21 @@
+﻿src/pages/CreateEvent.tsx(176,15): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: InteractiveMapProps): InteractiveMap', gave the following error.
+    Type '{ children: Element; initialViewState: { longitude: number; latitude: number; zoom: number; }; mapStyle: string; style: { width: string; height: string; }; onMoveEnd: (e: any) => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<InteractiveMap> & Readonly<InteractiveMapProps>'.
+      Property 'initialViewState' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<InteractiveMap> & Readonly<InteractiveMapProps>'.
+  Overload 2 of 2, '(props: InteractiveMapProps, context: any): InteractiveMap', gave the following error.
+    Type '{ children: Element; initialViewState: { longitude: number; latitude: number; zoom: number; }; mapStyle: string; style: { width: string; height: string; }; onMoveEnd: (e: any) => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<InteractiveMap> & Readonly<InteractiveMapProps>'.
+      Property 'initialViewState' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<InteractiveMap> & Readonly<InteractiveMapProps>'.
+src/pages/DiscoveryHome.tsx(59,11): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: InteractiveMapProps): InteractiveMap', gave the following error.
+    Type '{ children: Element[]; initialViewState: { longitude: number; latitude: number; zoom: number; }; mapStyle: string; style: { width: string; height: string; }; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<InteractiveMap> & Readonly<InteractiveMapProps>'.
+      Property 'initialViewState' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<InteractiveMap> & Readonly<InteractiveMapProps>'.
+  Overload 2 of 2, '(props: InteractiveMapProps, context: any): InteractiveMap', gave the following error.
+    Type '{ children: Element[]; initialViewState: { longitude: number; latitude: number; zoom: number; }; mapStyle: string; style: { width: string; height: string; }; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<InteractiveMap> & Readonly<InteractiveMapProps>'.
+      Property 'initialViewState' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<InteractiveMap> & Readonly<InteractiveMapProps>'.
+src/pages/DiscoveryHome.tsx(72,15): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: MarkerProps): Marker', gave the following error.
+    Type '{ children: Element; key: string; longitude: number; latitude: number; onClick: (e: any) => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<Marker> & Readonly<MarkerProps>'.
+      Property 'onClick' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<Marker> & Readonly<MarkerProps>'.
+  Overload 2 of 2, '(props: MarkerProps, context: any): Marker', gave the following error.
+    Type '{ children: Element; key: string; longitude: number; latitude: number; onClick: (e: any) => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<Marker> & Readonly<MarkerProps>'.
+      Property 'onClick' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<Marker> & Readonly<MarkerProps>'.

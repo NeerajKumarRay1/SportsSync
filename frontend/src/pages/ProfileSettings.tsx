@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Edit2, Star, Shield, LogOut, Settings } from 'lucide-react';
+import { userApi } from '../services/apiMethods';
 
 const ProfileSettings = () => {
   const [activeTab, setActiveTab] = useState<'profile' | 'settings'>('profile');
@@ -26,9 +27,19 @@ const ProfileSettings = () => {
     darkMode: false,
   });
 
-  const handleSaveProfile = () => {
-    setIsEditing(false);
-    // Submit to backend
+
+const handleSaveProfile = async () => {
+    try {
+      await userApi.updateProfile({
+        primarySport: user.primarySport,
+        // The user form didn't capture skillLevel but adding default/dummy
+        bio: user.bio,
+      });
+      setIsEditing(false);
+      // Let parent know to refetch
+    } catch (err) {
+      console.error('Failed to save profile', err);
+    }
   };
 
   return (

@@ -64,7 +64,10 @@ export default function AuthScreen() {
       }
       navigate('/');
     } catch (err: any) {
-      let msg = 'Registration failed. Please try again.';
+      let msg =
+        mode === 'login'
+          ? 'Login failed. Please try again.'
+          : 'Registration failed. Please try again.';
       
       if (err?.response?.data) {
         const data = err.response.data;
@@ -74,6 +77,8 @@ export default function AuthScreen() {
         } else if (data.message) {
           msg = data.message;
         }
+      } else if (err?.code === 'ECONNABORTED' || !err?.response) {
+        msg = 'Cannot reach the server. Make sure backend is running on http://localhost:8080.';
       } else if (mode === 'login') {
         msg = 'Invalid email or password.';
       }

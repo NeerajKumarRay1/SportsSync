@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { scheduleApi } from '../services/apiMethods';
 import { useApi } from '../hooks/useApi';
 import type { ScheduleEvent, SportType } from '../types';
@@ -89,38 +90,51 @@ export default function MySchedule() {
         ))}
       </div>
 
-      <BottomNav active="schedule" />
+      <BottomNav />
     </div>
   );
 }
 
 function ScheduleCard({ event }: { event: ScheduleEvent }) {
+  const navigate = useNavigate();
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-sm flex items-center gap-4">
-      {/* Sport icon badge */}
-      <div className="w-11 h-11 bg-blue-50 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
-        {SPORT_ICON[event.sport] ?? '🏅'}
+    <div
+      onClick={() => navigate(`/chat/${event.eventId}`)}
+      style={{
+        display: 'flex', alignItems: 'center', gap: 14,
+        padding: '14px 16px',
+        background: '#FFFFFF',
+        borderRadius: 12,
+        border: '1px solid #F0F0F5',
+        cursor: 'pointer',
+        transition: 'background 0.15s',
+        marginBottom: 8,
+      }}
+      onMouseEnter={e => (e.currentTarget.style.background = '#F0F0F5')}
+      onMouseLeave={e => (e.currentTarget.style.background = '#FFFFFF')}
+    >
+      {/* Sport icon */}
+      <div style={{
+        width: 44, height: 44,
+        borderRadius: 10,
+        background: '#FFF0EA',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        flexShrink: 0,
+      }}>
+        <span style={{ fontSize: 22 }}>{SPORT_ICON[event.sport] ?? '🏃'}</span>
       </div>
 
-      {/* Info */}
-      <div className="flex-1 min-w-0">
-        <p className="font-semibold text-gray-900 text-sm">{event.sport}</p>
-        <p className="text-xs text-gray-500 uppercase tracking-wide mt-0.5">
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <p style={{ fontWeight: 600, color: '#242428', marginBottom: 2 }}>{event.sport} Game</p>
+        <p style={{ fontSize: 12, color: '#FC5200', fontWeight: 500, marginBottom: 2 }}>
           {formatEventDate(event.eventDate)}
         </p>
-        <div className="flex items-center gap-1 mt-1.5">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-gray-400 flex-shrink-0">
-            <path d="M6 1C4.067 1 2.5 2.567 2.5 4.5C2.5 7 6 11 6 11C6 11 9.5 7 9.5 4.5C9.5 2.567 7.933 1 6 1Z"
-              stroke="currentColor" strokeWidth="1" fill="none"/>
-          </svg>
-          <span className="text-xs text-gray-500 truncate">{event.locationName}</span>
-        </div>
+        <p style={{ fontSize: 12, color: '#999', display: 'flex', alignItems: 'center', gap: 4 }}>
+          📍 {event.locationName}
+        </p>
       </div>
 
-      {/* Chevron */}
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-gray-300 flex-shrink-0">
-        <path d="M6 4L10 8L6 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
+      <span style={{ color: '#999', fontSize: 18 }}>›</span>
     </div>
   );
 }

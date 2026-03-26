@@ -1,181 +1,105 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { userApi } from '../services/apiMethods';
-import { useApi } from '../hooks/useApi';
-import { useAuth } from '../context/AuthContext';
+import type { UserProfile } from '../types';
 import BottomNav from '../components/BottomNav';
 
-const SKILL_LABELS = ['', 'Beginner', 'Beginner+', 'Intermediate', 'Advanced', 'Elite'];
-
 export default function PlayerDashboard() {
-  const { logout } = useAuth();
-  const [activeTab, setActiveTab] = useState<'stats' | 'settings'>('stats');
+  const navigate = useNavigate();
+  const [profile, setProfile] = useState<UserProfile | null>(null);
 
-  const { data: profile, isLoading, error, refetch } = useApi(
-    () => userApi.getMyProfile(),
-  );
+  useEffect(() => {
+    // Basic check for token
+    if (!localStorage.getItem('token')) {
+      navigate('/login');
+      return;
+    }
+    userApi.getMyProfile()
+      .then(setProfile)
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [navigate]);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
+  if (!profile) {
+    return <div className="h-screen bg-white"></div>; // Loading
   }
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-3">
-        <p className="text-sm text-red-500">{error}</p>
-        <button onClick={refetch} className="text-sm text-blue-600 font-medium">
-          Retry
-        </button>
-      </div>
-    );
-  }
+  // Activity logic if added later. Mocking zero logic for pure empty state:
+  const statActivities = 0;
+  const statLevel = 1;
+  const statXP = 0;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* Header card */}
-      <div className="bg-gray-900 pt-14 pb-8 px-5 relative">
-        {/* Edit button */}
-        <button className="absolute top-12 right-5 text-gray-400 hover:text-white">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M14 2L18 6L7 17H3V13L14 2Z" stroke="currentColor" strokeWidth="1.5"
-              strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
-
-        {/* Avatar */}
-        <div className="flex flex-col items-center">
-          <div className="relative mb-3">
-            <div className="w-20 h-20 rounded-full bg-gray-600 overflow-hidden">
-              {profile?.avatarUrl ? (
-                <img src={profile.avatarUrl} alt="avatar" className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-3xl font-bold text-white">
-                  {profile?.displayName?.[0]?.toUpperCase() ?? '?'}
-                </div>
-              )}
-            </div>
-            {/* Rating badge */}
-            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-yellow-400 text-yellow-900
-              text-xs font-bold px-2 py-0.5 rounded-full flex items-center gap-1 whitespace-nowrap">
-              ★ {profile?.reputationScore?.toFixed(1) ?? '—'}
-            </div>
-          </div>
-
-          <h2 className="text-white font-bold text-xl mt-2">{profile?.displayName}</h2>
-
-          {profile?.verified && (
-            <div className="flex items-center gap-1.5 mt-1">
-              <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
-                <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-                  <path d="M1.5 4L3 5.5L6.5 2" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <span className="text-gray-300 text-sm">Verified Player</span>
+    <div className="min-h-screen bg-[#F5F5F5] pb-24 font-sans">
+      {/* Header section w/ Avatar */}
+      <div className="bg-white px-4 pt-12 pb-6 flex items-center gap-4 shadow-sm relative">
+        <div className="w-20 h-20 rounded-full border-2 border-[#FC5200] overflow-hidden bg-gray-100 flex-shrink-0">
+          {profile.avatarUrl ? (
+            <img src={profile.avatarUrl} alt="avatar" className="w-full h-full object-cover" />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-gray-400">
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
             </div>
           )}
         </div>
+        <div className="flex-1">
+          <h1 className="text-xl font-bold text-[#242428]">
+            {profile.displayName} <span className="text-sm font-normal text-gray-500">@{profile.displayName}</span>
+          </h1>
+          <p className="text-sm text-gray-500 mt-0.5">Player LV. {statLevel}</p>
+        </div>
+        
+        {/* Settings cog */}
+        <button
+          onClick={() => navigate('/settings')}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </button>
+      </div>
 
-        {/* Tab toggle */}
-        <div className="bg-gray-800 rounded-full p-1 flex mt-5">
-          {(['stats', 'settings'] as const).map((t) => (
-            <button
-              key={t}
-              onClick={() => setActiveTab(t)}
-              className={`flex-1 py-2 rounded-full text-sm font-medium transition-colors capitalize ${
-                activeTab === t ? 'bg-white text-gray-900' : 'text-gray-400'
-              }`}
-            >
-              {t}
-            </button>
-          ))}
+      {/* Stats bar */}
+      <div className="bg-white border-t border-gray-100 flex text-center">
+        <div className="flex-1 py-3 border-r border-gray-100">
+          <p className="text-xs text-gray-500 uppercase tracking-wide">Activities</p>
+          <p className="font-semibold text-lg">{statActivities}</p>
+        </div>
+        <div className="flex-1 py-3 border-r border-gray-100">
+          <p className="text-xs text-gray-500 uppercase tracking-wide">Level</p>
+          <p className="font-semibold text-lg">{statLevel}</p>
+        </div>
+        <div className="flex-1 py-3">
+          <p className="text-xs text-gray-500 uppercase tracking-wide">XP</p>
+          <p className="font-semibold text-lg">{statXP}</p>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 overflow-y-auto pb-24 px-4 pt-4 space-y-3">
-        {activeTab === 'stats' && profile && (
-          <>
-            {/* Bio */}
-            {profile.bio && (
-              <div className="bg-white rounded-2xl p-4 shadow-sm">
-                <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">About</p>
-                <p className="text-sm text-gray-700">{profile.bio}</p>
-              </div>
-            )}
-
-            {/* Stats grid */}
-            <div className="grid grid-cols-2 gap-3">
-              <StatCard label="Games played" value={profile.gamesPlayed} />
-              <StatCard label="Organized" value={profile.gamesOrganized} />
+      {/* Feed area wrapper */}
+      <div className="mt-4 px-4 space-y-4">
+        <div className="bg-white rounded p-6 shadow-sm flex items-center justify-center min-h-[160px] text-center">
+          <div>
+            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
             </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-blue-600 rounded-2xl p-4 shadow-sm">
-                <p className="text-blue-200 text-xs uppercase tracking-wide mb-1">Primary sport</p>
-                <p className="text-white font-bold text-base">{profile.primarySport ?? '—'}</p>
-              </div>
-              <div className="bg-green-50 rounded-2xl p-4 shadow-sm">
-                <p className="text-green-700 text-xs uppercase tracking-wide mb-1">Reliability</p>
-                <p className="text-green-700 font-bold text-2xl">{profile.reliabilityPct}%</p>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl p-4 shadow-sm">
-              <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Skill level</p>
-              <p className="text-sm font-semibold text-gray-800">
-                {SKILL_LABELS[profile.skillLevel] ?? `Level ${profile.skillLevel}`}
-              </p>
-              {/* Progress bar */}
-              <div className="mt-2 h-2 bg-gray-100 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-blue-500 rounded-full transition-all"
-                  style={{ width: `${(profile.skillLevel / 5) * 100}%` }}
-                />
-              </div>
-            </div>
-          </>
-        )}
-
-        {activeTab === 'settings' && (
-          <div className="space-y-3">
-            <SettingsRow label="Edit profile" />
-            <SettingsRow label="Notification preferences" />
-            <SettingsRow label="Privacy settings" />
-            <SettingsRow label="Blocked users" />
-            <button
-              onClick={logout}
-              className="w-full bg-white rounded-2xl p-4 shadow-sm text-left text-red-500 text-sm font-medium"
-            >
-              Sign out
-            </button>
+            <p className="text-gray-500 text-sm">
+              You haven't completed any events lately. <br />
+              <span className="font-semibold text-[#FC5200] cursor-pointer" onClick={() => navigate('/events')}>Find an event</span> to get started.
+            </p>
           </div>
-        )}
+        </div>
       </div>
 
-      <BottomNav active="profile" />
-    </div>
-  );
-}
-
-function StatCard({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="bg-white rounded-2xl p-4 shadow-sm">
-      <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">{label}</p>
-      <p className="text-2xl font-bold text-gray-900">{value}</p>
-    </div>
-  );
-}
-
-function SettingsRow({ label }: { label: string }) {
-  return (
-    <div className="bg-white rounded-2xl p-4 shadow-sm flex justify-between items-center">
-      <span className="text-sm text-gray-700">{label}</span>
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-gray-300">
-        <path d="M6 4L10 8L6 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
+      <BottomNav />
     </div>
   );
 }

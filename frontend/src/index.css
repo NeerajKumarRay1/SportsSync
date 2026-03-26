@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── SportSync × Strava Design Tokens ─── */
+:root {
+  --brand-orange:        #FC4C02;
+  --brand-orange-ui:     #FC5200;
+  --brand-orange-hover:  #CC4200;
+  --brand-orange-light:  #FFF0EA;
+
+  --bg-primary:          #FFFFFF;
+  --bg-secondary:        #F0F0F5;
+
+  --text-primary:        #242428;
+  --text-secondary:      #999999;
+
+  --success:             #1DB954;
+
+  --border-color:        #E8E8EE;
+  --radius-sm:           8px;
+  --radius-md:           12px;
+  --radius-lg:           16px;
+}
+
 @layer base {
   body {
     @apply bg-slate-50 text-slate-900 antialiased;

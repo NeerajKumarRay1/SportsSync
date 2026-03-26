@@ -10,8 +10,12 @@ export const tokenStore = {
 };
 
 // ─── Axios instance ─────────────────────────────────────────────────────────
+const defaultBaseUrl = import.meta.env.DEV
+  ? 'http://localhost:8080'
+  : 'https://sportsync-backend-h7er.onrender.com';
+
 const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL ?? 'https://sportsync-backend-h7er.onrender.com',
+  baseURL: import.meta.env.VITE_API_BASE_URL ?? defaultBaseUrl,
   headers: { 'Content-Type': 'application/json' },
   timeout: 10_000,
 });

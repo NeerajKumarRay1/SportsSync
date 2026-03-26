@@ -19,7 +19,7 @@ const MainLayout = () => {
       <div className="h-full w-full overflow-y-auto pb-24">
         <Outlet />
       </div>
-      <BottomNav active={getActiveTab()} />
+      <BottomNav />
     </div>
   );
 };

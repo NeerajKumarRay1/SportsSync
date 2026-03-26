@@ -12,6 +12,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.UUID;
@@ -35,6 +37,11 @@ class JwtIntegrationTest {
 
     @BeforeEach
     void setUp() {
+        // Avoid JDK HttpURLConnection retry/auth edge cases on expected 401 responses.
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setOutputStreaming(false);
+        restTemplate.getRestTemplate().setRequestFactory(requestFactory);
+
         uniqueEmail = "jwt.test." + UUID.randomUUID().toString() + "@example.com";
         
         validUser = new RegisterRequest();
@@ -89,13 +96,16 @@ class JwtIntegrationTest {
         wrongPassword.setEmail(uniqueEmail);
         wrongPassword.setPassword("WrongPassword123!");
 
-        ResponseEntity<String> loginResponse = restTemplate.postForEntity(
-            "http://localhost:" + port + "/api/auth/login",
-            wrongPassword,
-            String.class
-        );
-
-        assertEquals(HttpStatus.UNAUTHORIZED, loginResponse.getStatusCode());
+        try {
+            ResponseEntity<String> loginResponse = restTemplate.postForEntity(
+                "http://localhost:" + port + "/api/auth/login",
+                wrongPassword,
+                String.class
+            );
+            assertEquals(HttpStatus.UNAUTHORIZED, loginResponse.getStatusCode());
+        } catch (ResourceAccessException ex) {
+            assertTrue(ex.getMessage().contains("cannot retry due to server authentication"));
+        }
     }
 
     @Test

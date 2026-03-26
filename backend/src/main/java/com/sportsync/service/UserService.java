@@ -7,6 +7,7 @@ import com.sportsync.entity.Event;
 import com.sportsync.entity.User;
 import com.sportsync.exception.ValidationException;
 import com.sportsync.repository.EventRepository;
+import com.sportsync.repository.ReviewRepository;
 import com.sportsync.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
+    private final ReviewRepository reviewRepository;
 
     @Transactional(readOnly = true)
     public UserProfileResponse getProfile(String userId) {
@@ -64,7 +66,12 @@ public class UserService {
 
     @Transactional
     public void updateReputationScore(Long userId) {
-        // Dummy implementation since Phase 1 had it
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ValidationException("User not found"));
+
+        Double averageScore = reviewRepository.calculateAverageReputationScore(userId);
+        user.setReputationScore(averageScore != null ? averageScore : 0.0);
+        userRepository.save(user);
     }
 
     // ── Private helpers ────────────────────────────────────────────────────────

@@ -1,5 +1,6 @@
 package com.sportsync.security;
 
+import com.sportsync.dto.AuthResponse;
 import com.sportsync.dto.LoginRequest;
 import com.sportsync.dto.RegisterRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Map;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,24 +50,24 @@ class JwtIntegrationTest {
     @Test
     @DisplayName("Should generate JWT token with enhanced security on successful login")
     void shouldGenerateSecureJwtTokenOnLogin() {
-        ResponseEntity<Map> registerResponse = restTemplate.postForEntity(
+        ResponseEntity<AuthResponse> registerResponse = restTemplate.postForEntity(
             "http://localhost:" + port + "/api/auth/register",
             validUser,
-            Map.class
+            AuthResponse.class
         );
         assertEquals(HttpStatus.CREATED, registerResponse.getStatusCode());
 
-        ResponseEntity<Map> loginResponse = restTemplate.postForEntity(
+        ResponseEntity<AuthResponse> loginResponse = restTemplate.postForEntity(
             "http://localhost:" + port + "/api/auth/login",
             loginRequest,
-            Map.class
+            AuthResponse.class
         );
 
         assertEquals(HttpStatus.OK, loginResponse.getStatusCode());
         assertNotNull(loginResponse.getBody());
-        assertTrue(loginResponse.getBody().containsKey("token"));
+        assertNotNull(loginResponse.getBody().getToken());
 
-        String token = (String) loginResponse.getBody().get("token");
+        String token = loginResponse.getBody().getToken();
         assertNotNull(token);
         assertFalse(token.isEmpty());
 
@@ -78,10 +78,10 @@ class JwtIntegrationTest {
     @Test
     @DisplayName("Should return proper error for invalid credentials")
     void shouldReturnErrorForInvalidCredentials() {
-        ResponseEntity<Map> registerResponse = restTemplate.postForEntity(
+        ResponseEntity<AuthResponse> registerResponse = restTemplate.postForEntity(
             "http://localhost:" + port + "/api/auth/register",
             validUser,
-            Map.class
+            AuthResponse.class
         );
         assertEquals(HttpStatus.CREATED, registerResponse.getStatusCode());     
 
@@ -89,10 +89,10 @@ class JwtIntegrationTest {
         wrongPassword.setEmail(uniqueEmail);
         wrongPassword.setPassword("WrongPassword123!");
 
-        ResponseEntity<Map> loginResponse = restTemplate.postForEntity(
+        ResponseEntity<String> loginResponse = restTemplate.postForEntity(
             "http://localhost:" + port + "/api/auth/login",
             wrongPassword,
-            Map.class
+            String.class
         );
 
         assertEquals(HttpStatus.UNAUTHORIZED, loginResponse.getStatusCode());
@@ -106,10 +106,10 @@ class JwtIntegrationTest {
         weakPasswordUser.setEmail("weak" + UUID.randomUUID().toString() + "@example.com");
         weakPasswordUser.setPassword("weak");
 
-        ResponseEntity<Map> response = restTemplate.postForEntity(
+        ResponseEntity<String> response = restTemplate.postForEntity(
             "http://localhost:" + port + "/api/auth/register",
             weakPasswordUser,
-            Map.class
+            String.class
         );
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());

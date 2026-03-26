@@ -5,7 +5,6 @@ import com.sportsync.entity.EventStatus;
 import com.sportsync.entity.Roster;
 import com.sportsync.entity.User;
 import com.sportsync.exception.EventFullException;
-import com.sportsync.exception.ResourceNotFoundException;
 import com.sportsync.exception.UserAlreadyJoinedException;
 import com.sportsync.repository.EventRepository;
 import com.sportsync.repository.RosterRepository;

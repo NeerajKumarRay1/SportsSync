@@ -5,8 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.TimeZone; // The required import
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.sportsync.entity.User;
 import com.sportsync.entity.SkillLevel;
 import com.sportsync.entity.Role;
@@ -20,16 +18,6 @@ public class SportSyncApplication {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kolkata")); 
         
         SpringApplication.run(SportSyncApplication.class, args);
-    }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
-            }
-        };
     }
 
     @Bean

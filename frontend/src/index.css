@@ -28,3 +28,8 @@
     @apply bg-slate-50 text-slate-900 antialiased;
   }
 }
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -24,15 +24,17 @@ const orangeIcon = L.divIcon({
   popupAnchor: [0, -40],
 });
 
-function MapUpdater({ center }: { center: [number, number] }) {
+function FlyToLocation({ lat, lng }: { lat: number; lng: number }) {
   const map = useMap();
   useEffect(() => {
-    map.flyTo(center, 13, { animate: true });
-  }, [center, map]);
+    if (lat && lng) {
+      map.flyTo([lat, lng], 14, { animate: true, duration: 1.2 });
+    }
+  }, [lat, lng, map]);
   return null;
 }
 
-export default function DiscoveryHome() {
+function DiscoveryHomeMemo() {
   const navigate = useNavigate();
   const { coords } = useGeolocation();
   const [events, setEvents] = useState<SportEvent[]>([]);
@@ -55,7 +57,7 @@ export default function DiscoveryHome() {
   const userLng = coords?.longitude ?? -122.4194;
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-white">
+    <div className="relative w-full bg-white" style={{ display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden' }}>
       {/* Search bar */}
       <div className="absolute top-4 left-4 right-4 z-[400] flex gap-2">
         <div className="flex-1 bg-white rounded-2xl shadow-md flex items-center px-4 py-3 gap-2">
@@ -91,13 +93,14 @@ export default function DiscoveryHome() {
       </div>
 
       <MapContainer
-        center={[userLat, userLng]}
+        center={[17.385, 78.487]}
         zoom={13}
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: 'calc(100dvh - 140px)', width: '100%' }}
         zoomControl={false}
       >
-        <MapUpdater center={[userLat, userLng]} />
+        <FlyToLocation lat={userLat} lng={userLng} />
         <TileLayer
+          keepBuffer={4}
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
@@ -137,3 +140,5 @@ export default function DiscoveryHome() {
     </div>
   );
 }
+
+export default React.memo(DiscoveryHomeMemo);
